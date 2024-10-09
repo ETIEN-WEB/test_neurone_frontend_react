@@ -1,6 +1,8 @@
 import React from 'react';
 import Master from "../layout/Master";
 import Home from "../layout/Home";
+import AddPost from "../posts/AddPost";
+import EditPost from "../posts/EditPost";
 
 const ProjectRouter = (
     {
@@ -10,6 +12,14 @@ const ProjectRouter = (
             {
                 path: '/post',
                 element: <Home/>
+            },
+            {
+                path: '/create/post',
+                element: <AddPost/>
+            },
+            {
+                path: '/post/edit/:id',
+                element: <EditPost/>
             },
 
         ]

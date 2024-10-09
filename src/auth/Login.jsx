@@ -120,7 +120,7 @@ const Login = () => {
 
                                 }
                                 <p className="mb-0 mt-3">Vous n'avez pas de compte! <Link
-                                    to={'/signup'}>Créer un compte</Link></p>
+                                    to={'/'}>Créer un compte</Link></p>
                                 {/*<div className="d-grid mt-4">*/}
                                 {/*    <button onClick={handleLogin} className="btn btn-outline-info" dangerouslySetInnerHTML={{__html: isLoading ? ' <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Connection... ' : ' Se connecter ' }}/>*/}
                                 {/*</div>*/}

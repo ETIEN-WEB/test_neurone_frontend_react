@@ -35,11 +35,11 @@ const Signup = () => {
         })
     );
 
-    const handleChange = (e) => {
+/*    const handleChange = (e) => {
         setChecked(!checked);
         let remember = (!checked == true) ? 'on': '';
         setInput(prevState => ({...prevState, remember : remember}))
-    };
+    };*/
 
 
     const handleInput = (e) => setInput(prevState => ({...prevState, [e.target.name] : e.target.value}))
@@ -165,7 +165,7 @@ const Signup = () => {
                                 </label>
                                 <input
                                     className={errors.password != undefined ? 'form-control is-invalid' : 'form-control' }
-                                    type={type}
+                                    type={'password'}
                                     name={'password'}
                                     value={input.password}
                                     onChange={handleInput}

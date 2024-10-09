@@ -37,6 +37,12 @@ a {
 .nav-link:focus{
     color: silver !important;
 }
+.ml-auto{
+    margin-left: auto;
+}
+.ml_4{
+    margin-left: 4px;
+}
 .sb-sidenav-menu-heading{
     color: #c282f4 !important;
 }

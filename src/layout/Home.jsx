@@ -11,7 +11,7 @@ const Home = () => {
     const [input, setInput] = useState({
         order_by : 'created_at',
         per_page : 2,
-        direction : 'asc',
+        direction : 'DESC',
         search : '',
     });
 
@@ -79,6 +79,34 @@ const Home = () => {
     }
 
 
+    const handlePostDelete = (id) => {
+        Swal.fire({
+            title: "Êtes-vous sure?",
+            text: "Vous allez supprimer cet post",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Oui, je supprime!",
+            cancelButtonText: "Annuler",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosClient.delete(`/posts/${id}`).then(res=>{
+                    getPosts()
+                    Swal.fire({
+                        position: "top-end",
+                        icon: res.data.cls,
+                        title: res.data.msg,
+                        showConfirmButton: false,
+                        toast:true,
+                        timer: 1500
+                    })
+                })
+            }
+        });
+    }
+
+
     useEffect( () => {
         getPosts()
     }, [])
@@ -87,16 +115,20 @@ const Home = () => {
         <>
             <div className="row ">
                  {/*<pre> {JSON.stringify(lastPage, undefined, 2)} </pre>*/}
-                <div className="col-md-12">
+                <div className="col-xl-12 col-lg-12 col-md-12">
                     <div className="card mb-4">
                         <div className="card-header">
                             <div className="d-flex justify-content-between align-items-center">
                                 <h4 className="text-theme"> Liste des posts </h4>
-                                <span>
+                                <div className="ml-auto" >
+                                    <Link to={'/create/post'} className="btn btn-primary mr_4">
+                                        Ajouter un post
+                                    </Link>
+
                                     <button className={'btn theme-button'} onClick={()=>handleLogout()}>
                                         Se déconnecter
                                     </button>
-                                </span>
+                                </div>
                             </div>
                         </div>
                         <div className="card-body">
@@ -137,8 +169,9 @@ const Home = () => {
                                                 value={input.direction}
                                                 onChange={handleInput}
                                             >
-                                                <option value={'asc'}>ASC </option>
                                                 <option value={'desc'}>DESC </option>
+                                                <option value={'asc'}>ASC </option>
+
 
                                             </select>
                                         </label>
@@ -195,7 +228,7 @@ const Home = () => {
                                                 </td>
                                                 <td>
                                                     <img
-                                                        src={post.image_path} alt={post.title}
+                                                        src={post.display_photo} alt={post.title}
                                                         className={'img-thumbnail table-image'}
                                                     />
                                                 </td>
@@ -203,10 +236,11 @@ const Home = () => {
                                                     <p className={'text-theme'}> <small>  Created: {post.created_at} </small></p>
                                                 </td>*/}
                                                 <td>
-                                                    {/*<button onClick={()=> handleDetailsModal(post)} className={'btn btn-sm btn-info my-1'}><i className="fa-solid fa-eye"/></button>
-                                                    <Link to={`/post/edit/${post.id}`} > <button className={'btn btn-sm btn-warning my-1'}> <i className="fa-solid fa-edit"/> </button></Link>
                                                     <button onClick={() => handlePostDelete(post.id) } className={'btn btn-sm btn-danger mx-1 my-1'}> <i className="fa-solid fa-trash"/> </button>
-                                                */}
+                                                    <Link to={`/post/edit/${post.id}`} > <button className={'btn btn-sm btn-warning my-1'}> <i className="fa-solid fa-edit"/> </button></Link>
+
+                                                    {/*<button onClick={()=> handleDetailsModal(post)} className={'btn btn-sm btn-info my-1'}><i className="fa-solid fa-eye"/></button>
+                                                    */}
                                                 </td>
                                             </tr>
                                         )) : <NoDataFound/>}
@@ -230,13 +264,6 @@ const Home = () => {
                                     lastPageText={lastPage}
                                     itemClass={'page-item'}
                                     linkClass={'page-link'}
-
-
-                                    /*nextPageText={'Suivant'}
-                                    prevPageText={'Avant'}*/
-
-
-
                                 />
                             </nav>
                         </div>
